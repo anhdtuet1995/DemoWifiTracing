@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">NetworkDemo</string>
+
+    <string name="ip">IP</string>
+    <string name="location_message">Hãy nhập địa điểm:</string>
+    <string name="location_error">Vui lòng nhập địa điểm!</string>
+    <string name="write_location_success">Bạn đã ghi thông tin thành công! Hãy mở file %s trong bộ nhớ máy để xem log!</string>
+    <string name="write_location_error">Ghi vào log thất bại!</string>
+    <string name="location_hint">Địa điểm &#8230;</string>
+    <string name="save">Save</string>
+    <string name="start">Start</string>
+    <string name="time">Time</string>
+    <string name="mac">Mac Address</string>
+    <string name="status">Status</string>
+    <string name="action">Actions</string>
+    <string name="add">Add</string>
+    <string name="ok">OK</string>
+    <string name="ng">NG</string>
+    <string name="url">URL&#8230;</string>
+</resources>
