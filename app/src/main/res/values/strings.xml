@@ -6,6 +6,9 @@
     <string name="location_error">Vui lòng nhập địa điểm!</string>
     <string name="write_location_success">Bạn đã ghi thông tin thành công! Hãy mở file %s trong bộ nhớ máy để xem log!</string>
     <string name="write_location_error">Ghi vào log thất bại!</string>
+    <string name="save_ip_success">Lưu lại địa chỉ IP thành công!</string>
+    <string name="empty_ip_message">Lưu thất bại! Không được bỏ trống địa chỉ IP!</string>
+    <string name="not_ip_message">Lưu thất bại! Địa chỉ IP không đúng định dạng!</string>
     <string name="location_hint">Địa điểm &#8230;</string>
     <string name="save">Save</string>
     <string name="start">Start</string>

@@ -8,10 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -37,17 +41,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private final int REQUEST_WRITE_STORAGE_PERMISSION = 207;
     private final String FILE_NAME = "wifi-log.txt";
+    private final String IP = "ip";
+
     private final String TAG = "WifiTracing";
     private List<Data> fakeData;
     private ActivityMainBinding mBinding;
     private DataAdapter mDataAdapter;
     private Data mInteractingData;
     private LocationDialog mLocationDialog;
+    private SharedPreferences mSharePrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        initSharePref();
 
         //TODO for testing
         fakeData = new ArrayList<>();
@@ -75,6 +84,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBinding.recyclerViewData.setAdapter(mDataAdapter);
         mDataAdapter.setActionClickListener(this);
         mBinding.btnFooterStart.setOnClickListener(this);
+        mBinding.headerSave.setOnClickListener(this);
+    }
+
+    private void initSharePref() {
+        mSharePrefs = this.getSharedPreferences(IP, Context.MODE_PRIVATE);
+        String currentIp = mSharePrefs.getString(IP, "");
+        mBinding.edInputIp.setText(currentIp);
+    }
+
+    private void saveIp(String ip) {
+        SharedPreferences.Editor editor = mSharePrefs.edit();
+        editor.putString(IP, ip);
+        editor.apply();
+        Toast.makeText(this, R.string.save_ip_success ,Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -108,6 +131,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //TODO for testing
                 Collections.shuffle(fakeData);
                 mDataAdapter.setNewData(fakeData);
+                break;
+            case R.id.header_save:
+                String newIp = mBinding.edInputIp.getText().toString();
+                if (TextUtils.isEmpty(newIp)) {
+                    Toast.makeText(this, R.string.empty_ip_message, Toast.LENGTH_SHORT).show();
+                } else if (!Patterns.IP_ADDRESS.matcher(newIp).matches()) {
+                    Toast.makeText(this, R.string.not_ip_message, Toast.LENGTH_SHORT).show();
+                } else {
+                    saveIp(newIp);
+                }
                 break;
         }
     }
